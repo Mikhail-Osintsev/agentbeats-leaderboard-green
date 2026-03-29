@@ -3,7 +3,7 @@ agentbeats_id = "019bc5a4-101d-7e73-a9cc-9dc5aaaa65b1"
 env = { OPENAI_API_KEY = "${OPENAI_API_KEY}" }
 
 [[participants]]
-agentbeats_id = "019d38e4-cce4-7143-b805-0c12a98eab4b"
+image = "ghcr.io/mikhail-osintsev/purple-tau2-agent:latest"
 name = "agent"
 env = { OPENAI_API_KEY = "${OPENAI_API_KEY}" }
 

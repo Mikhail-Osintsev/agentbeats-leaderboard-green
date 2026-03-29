@@ -29,6 +29,10 @@ except ImportError:
 
 
 AGENTBEATS_API_URL = "https://agentbeats.dev/api/agents"
+FALLBACK_IMAGES = {
+    "019d38e4-cce4-7143-b805-0c12a98eab4b": "ghcr.io/mikhail-osintsev/purple-tau2-agent:latest",
+    "019d393d-06e2-7ce1-a69d-9c99bb6269ca": "ghcr.io/mikhail-osintsev/purple-tau2-agent:latest",
+}
 
 
 def fetch_agent_info(agentbeats_id: str) -> dict:
@@ -138,6 +142,10 @@ def resolve_image(agent: dict, name: str) -> None:
     elif has_id:
         info = fetch_agent_info(agent["agentbeats_id"])
         agent["image"] = info["docker_image"]
+        if agent["image"] is None:
+            fallback_image = FALLBACK_IMAGES.get(agent["agentbeats_id"])
+            if fallback_image:
+                agent["image"] = fallback_image
         print(f"Resolved {name} image: {agent['image']}")
     else:
         print(f"Error: {name} must have either 'image' or 'agentbeats_id' field")
